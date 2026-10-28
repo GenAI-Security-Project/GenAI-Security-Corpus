@@ -3,7 +3,8 @@
 ## Adding a corpus resource
 
 See "Adding or updating a resource" in [README.md](./README.md). In short: drop the
-file(s) in `corpus/<initiative>/`, add a `corpus/MANIFEST.yaml` entry, open a PR --
+file and a `.yaml` sidecar in `inbox/` and open a PR (see [inbox/README.md](inbox/README.md)),
+or do it by hand: file(s) in `corpus/<initiative>/`, a `corpus/MANIFEST.yaml` entry, a PR --
 CI validates the manifest, and PDF text extraction runs automatically after merge.
 
 ## Changing the tooling

@@ -22,16 +22,30 @@ corpus/
   MANIFEST.yaml          # catalog of every resource -- the single source of truth
   <initiative>/...       # vendored content, grouped by initiative
   _extracted/            # auto-generated PDF text (search index only, never edit)
+inbox/                   # submission drop zone -- always empty on main
 scripts/
   validate_corpus.py     # MANIFEST checks, run by CI on every PR
+  process_inbox.py       # inbox/ -> corpus/ + MANIFEST entry, with license check
   extract_pdf_text.py    # regenerates corpus/_extracted/ from vendored PDFs
   requirements.txt
 .github/workflows/
   validate-corpus.yaml   # PR check
+  process-inbox.yaml     # PR: processes inbox/ submissions onto the PR branch
   extract-pdf-text.yaml  # runs on push to main, commits refreshed _extracted/
 ```
 
 ## Adding or updating a resource
+
+**Easiest: use the inbox.** Put the file and a small `.yaml` sidecar in
+`inbox/` and open a PR. The `process-inbox` workflow checks the document for an
+explicit license statement, moves it into `corpus/`, writes the `MANIFEST.yaml`
+entry (and marks anything it supersedes), and comments on the PR with what it
+did. See [inbox/README.md](inbox/README.md). Don't have the file, or don't want
+to open a PR? Use the **Propose a corpus resource** issue form instead.
+
+The manual steps below are what the inbox automates, and still apply for
+anything it can't handle (e.g. turning an existing `linked` entry into a
+vendored one).
 
 1. **Confirm the license.** Only vendor (copy in) a document whose license is
    explicitly stated in the source -- most OWASP GenAI Security Project output is
@@ -70,7 +84,7 @@ scripts/
    python scripts/validate_corpus.py
    ```
 
-6. **Open a PR.** `validate-corpus.yaml` checks that every entry has its required
+6. **Open a PR.** `validate-corpus.yaml` checks that `inbox/` is empty and that every entry has its required
    fields, ids are unique, `status` is valid, and `path` exists (or is `null` for
    `linked`). CODEOWNERS review is required for `corpus/`.
 7. **After merge,** `extract-pdf-text.yaml` extracts text from every `current` or

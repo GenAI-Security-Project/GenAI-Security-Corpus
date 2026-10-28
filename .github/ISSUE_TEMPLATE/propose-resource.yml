@@ -1,0 +1,42 @@
+name: Propose a corpus resource
+description: Suggest an OWASP GenAI Security Project document for the Advisor corpus, without opening a PR.
+title: "Resource: "
+labels: ["corpus-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer will check the license and add it through `inbox/`.
+        If you'd rather do it yourself, see `inbox/README.md`.
+  - type: input
+    id: title
+    attributes:
+      label: Title
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Source URL
+      description: genai.owasp.org resource page, direct PDF link, or upstream repo path.
+    validations:
+      required: true
+  - type: input
+    id: initiative
+    attributes:
+      label: Initiative
+      description: e.g. llm-top10, agentic-top10, data-security, mcp-security, red-teaming, governance, incident-response, or a new one.
+  - type: input
+    id: supersedes
+    attributes:
+      label: Replaces an existing resource?
+      description: The MANIFEST.yaml id it supersedes, if any.
+  - type: textarea
+    id: license
+    attributes:
+      label: License
+      description: Where does the document state its license? (e.g. "CC BY-SA 4.0 on page 2")
+  - type: textarea
+    id: notes
+    attributes:
+      label: What is it, and when should the Advisor use it?

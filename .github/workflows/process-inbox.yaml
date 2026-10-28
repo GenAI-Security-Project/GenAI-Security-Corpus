@@ -1,0 +1,88 @@
+name: PR - Process inbox
+
+# Turns submissions in inbox/ into corpus/ files + MANIFEST.yaml entries on the
+# PR branch, so reviewers see exactly what will merge. See inbox/README.md.
+
+on:
+  pull_request:
+    paths:
+      - "inbox/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: process-inbox-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    env:
+      # Same-repo PRs get the processed files committed back. Fork PRs can't
+      # be written to, so they get a dry run and the report in the job summary.
+      SAME_REPO: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          # Commits pushed with the default GITHUB_TOKEN don't re-trigger
+          # workflows. Set CORPUS_BOT_TOKEN (a GitHub App or fine-grained
+          # token with contents:write) so validate-corpus re-runs on the
+          # processed commit.
+          token: ${{ secrets.CORPUS_BOT_TOKEN || github.token }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Process inbox
+        id: process
+        run: |
+          args="--report inbox-report.md"
+          if [ "$SAME_REPO" != "true" ]; then args="$args --dry-run"; fi
+          set +e
+          python scripts/process_inbox.py $args
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          cat inbox-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit processed submissions
+        if: env.SAME_REPO == 'true'
+        run: |
+          git config user.name "corpus-inbox-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A corpus/ inbox/
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "Process inbox submissions into corpus/"
+            git push
+          fi
+
+      - name: Comment report on PR
+        if: env.SAME_REPO == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          {
+            cat inbox-report.md
+            echo
+            echo "_Reviewers: confirm the license and the manifest entry before merging._"
+          } > comment.md
+          gh api "repos/${{ github.repository }}/issues/$PR/comments" -F body=@comment.md > /dev/null
+
+      - name: Fail if anything was held
+        if: steps.process.outputs.exit != '0'
+        run: |
+          echo "::error::Some inbox submissions were held -- see the report in the job summary / PR comment."
+          exit 1
+
+      - name: Validate corpus
+        if: env.SAME_REPO == 'true'
+        run: python scripts/validate_corpus.py --repo-root .
