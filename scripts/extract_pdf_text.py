@@ -63,10 +63,20 @@ def extract_one(repo_root: str, pdf_path: str, resource_id: str, license_: str) 
         f"\n"
     )
 
+    body = "\n\n".join(pages) + "\n"
+
+    # Leave unchanged files alone; otherwise every run rewrites every file
+    # just to bump the `extracted:` date in the header.
+    if os.path.isfile(out_abs):
+        with open(out_abs, "r", encoding="utf-8") as f:
+            old = f.read()
+        if old.startswith(header.split("# extracted:")[0]) and old.endswith("\n\n" + body):
+            print(f"[extract_pdf_text] unchanged {out_rel}")
+            return False
+
     with open(out_abs, "w", encoding="utf-8") as f:
         f.write(header)
-        f.write("\n\n".join(pages))
-        f.write("\n")
+        f.write(body)
 
     print(f"[extract_pdf_text] wrote {out_rel} ({len(pages)} pages)")
     return True
@@ -111,7 +121,7 @@ def main() -> None:
             if extract_one(repo_root, pdf_path, r["id"], r.get("license", "UNKNOWN")):
                 wrote += 1
 
-    print(f"[extract_pdf_text] done: {wrote} file(s) extracted")
+    print(f"[extract_pdf_text] done: {wrote} file(s) written")
 
 
 if __name__ == "__main__":

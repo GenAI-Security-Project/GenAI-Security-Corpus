@@ -24,7 +24,7 @@ jobs:
       # be written to, so they get a dry run and the report in the job summary.
       SAME_REPO: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -34,7 +34,7 @@ jobs:
           # processed commit.
           token: ${{ secrets.CORPUS_BOT_TOKEN || github.token }}
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
