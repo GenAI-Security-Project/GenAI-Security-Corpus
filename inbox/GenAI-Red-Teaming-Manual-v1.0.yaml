@@ -1,0 +1,19 @@
+id: genai-red-teaming-manual-1.0
+title: "GenAI Red Teaming Manual: A Practical Guide for Adversarial Testing of Generative AI Models & Systems"
+initiative: red-teaming
+version: "1.0"
+status: current
+source_url: https://genai.owasp.org/resource/genai-red-teaming-manual-version-1-0/
+published: "2026-10-01"
+notes: >
+  Practical, phase-by-phase AI red-teaming methodology (144pp, October
+  2026): planning & scoping (stakeholders, frameworks, governance and
+  regulation, environment/access), reconnaissance & fingerprinting
+  (public artifacts, supply chain), surface mapping, exploitation &
+  impact, persistence & escalation, post-exploitation, evaluation &
+  reporting, and post-engagement remediation, plus when to run an AI red
+  team exercise and how testing maps to the GenAI system lifecycle.
+  Appendix B has worked red-teaming examples. Use for "how do I red team
+  this GenAI system / agent" and test-planning questions; pair with
+  red-teaming-vendor-evaluation-criteria-1.0 when choosing providers or
+  tooling.
