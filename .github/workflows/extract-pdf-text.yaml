@@ -7,20 +7,30 @@ on:
       - "corpus/**/*.pdf"
       - "corpus/MANIFEST.yaml"
       - "scripts/extract_pdf_text.py"
+      - "scripts/requirements.txt"
   workflow_dispatch: {}
 
 permissions:
   contents: write
+
+# Merges that land close together would otherwise race to push to main and
+# all but one would fail. Queue runs instead; each one checks out the latest
+# main, so the last run always covers everything merged before it.
+concurrency:
+  group: extract-pdf-text
+  cancel-in-progress: false
 
 jobs:
   extract:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          ref: main
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -39,5 +49,11 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Extract PDF text for search index ($(date -u +%Y-%m-%d))"
-            git push
+            # A push can still lose to a merge that lands mid-run; rebase onto
+            # it and retry. _extracted/ is only written here, so no conflicts.
+            for i in 1 2 3; do
+              git push && exit 0
+              git pull --rebase origin main
+            done
+            exit 1
           fi
