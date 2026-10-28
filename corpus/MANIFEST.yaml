@@ -347,3 +347,24 @@ resources:
     vendored_date: "2026-08-09"
     published: null
     notes: "Industry state-of-the-field report (139pp)."
+
+  - id: llm-exploit-generation-phase2-1.0
+    title: "LLM Exploit Generation -- Phase 2: Agentic vs. Classic Offensive Approaches"
+    initiative: red-teaming
+    version: "1.0"
+    status: current
+    format: pdf
+    path: corpus/red-teaming/LLM-Exploit-Generation-Phase-2-v1.0.pdf
+    license: CC-BY-SA-4.0
+    source_url: https://genai.owasp.org/resource/llm-exploit-generation-guide-2-0/
+    vendored_date: "2026-10-28"
+    published: "2026-10-01"
+    notes: >
+      Threat Intelligence Initiative report (57pp, October 2026): compares
+      human-guided single-model ("classic") and agentic LLM offensive
+      workflows against Hack The Box targets, including "vibe hacking",
+      threat-actor tiering and uplift, offensive-LLM economics, insider/local
+      models, what defenders can take from it, and a critique of cyber
+      benchmark reliability. Distinct from the Phase 1 report
+      (llm-exploit-generation-1.0, linked only), which it follows rather than
+      supersedes.
