@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "corpus/**"
+      - "inbox/**"
       - "scripts/validate_corpus.py"
 
 jobs:

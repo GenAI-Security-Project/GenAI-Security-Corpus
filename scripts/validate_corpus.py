@@ -71,6 +71,14 @@ def main() -> None:
             if not str(r[key]).strip():
                 die(f"resource '{rid}': {key} is empty")
 
+    # inbox/ is a staging area only: nothing may merge while it holds a
+    # submission, or unreviewed (possibly unlicensed) files would land on main.
+    inbox = os.path.join(repo_root, "inbox")
+    if os.path.isdir(inbox):
+        pending = sorted(n for n in os.listdir(inbox) if n not in ("README.md", ".gitkeep"))
+        if pending:
+            die(f"inbox/ must be empty before merge -- run scripts/process_inbox.py; pending: {pending}")
+
     print(f"[validate_corpus] OK: {len(resources)} resources validated from {manifest_path}")
 
 
