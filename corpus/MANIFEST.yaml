@@ -1,7 +1,8 @@
 # Catalog of every document/collection in corpus/.
 #
-# This file is the single source of truth the skill consults to find current
-# content -- SKILL.md never hardcodes file paths. To add a new resource:
+# This file is the single source of truth the Advisor skill and MCP server
+# consult to find current content. To add a new resource (full process in
+# README.md at the repo root):
 #   1. Drop the file(s) in the appropriate corpus/<initiative>/ subfolder
 #      (create a new version-dated folder if this supersedes something).
 #   2. Add an entry below.
