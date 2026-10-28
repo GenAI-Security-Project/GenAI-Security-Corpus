@@ -13,6 +13,11 @@ CI validates the manifest, and PDF text extraction runs automatically after merg
 workflows in `.github/workflows/`. Changing `extract_pdf_text.py` re-runs extraction
 on the next push to `main`.
 
+## Open maintainer tasks
+
+Setup tasks and pending decisions (bot token, pending corpus updates, MCP
+monitoring) are tracked in [MAINTAINERS.md](./MAINTAINERS.md).
+
 ## Where to make corpus changes
 
 Here, always. This repo is the authoritative corpus for both the skill and the MCP
