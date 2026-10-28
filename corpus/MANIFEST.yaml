@@ -392,3 +392,26 @@ resources:
       system / agent" and test-planning questions; pair with
       red-teaming-vendor-evaluation-criteria-1.0 when choosing providers or
       tooling.
+
+  - id: securing-agentic-applications-guide-2.0
+    title: "Securing Agentic Applications V2: A Builder & Defender's Guide"
+    initiative: agentic-top10
+    version: "2.0"
+    status: draft
+    format: pdf
+    path: corpus/agentic-top10/companions/Securing-Agentic-Applications-Guide-2.0.pdf
+    license: CC-BY-SA-4.0
+    source_url: https://genai.owasp.org/
+    vendored_date: "2026-10-28"
+    published: null
+    notes: >
+      External-review draft of v2.0 (106pp, October 2026) of the Securing
+      Agentic Applications guide. Covers secure agentic architectures (key
+      components KC1-KC6 attack surface analysis, secure architecture
+      patterns), agentic developer guidelines, enhanced security actions, key
+      operational capabilities, agentic supply chain, assuring agentic
+      applications, secure deployments, and securing agentic applications
+      across different platforms. Pre-release:
+      securing-agentic-applications-guide-1.0 remains current. On publication,
+      set this to current, mark 1.0 superseded, and replace source_url with
+      the v2.0 resource page.
