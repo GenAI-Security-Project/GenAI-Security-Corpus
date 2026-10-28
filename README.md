@@ -1,8 +1,8 @@
 # GenAI Security Corpus
 
 The curated, versioned research corpus behind the OWASP GenAI Security Project's
-advisor tooling. This repo is the **single place where corpus content is added,
-updated, validated, and processed**.
+advisor tooling. **This repo is the authoritative source of the corpus** -- the
+single place where corpus content is added, updated, validated, and processed.
 
 Consumers:
 
@@ -10,8 +10,10 @@ Consumers:
   -- remote MCP server; reads `corpus/MANIFEST.yaml` and files from this repo's
   `main` branch at query time (edge-cached for up to an hour).
 - [GenAI-Security-Advisor](https://github.com/GenAI-Security-Project/GenAI-Security-Advisor)
-  -- the Agent Skill (`SKILL.md`). Skill instructions live there; corpus content
-  lives here.
+  -- the Agent Skill (`SKILL.md`). It bundles a copy of `corpus/`, which a GitHub
+  Action copies over from this repo when the corpus changes. **Never edit the
+  skills repo's `corpus/` directly** -- changes there are overwritten by the next
+  copy. Skill instructions live there; corpus content lives here.
 
 ## Layout
 
@@ -86,7 +88,8 @@ manual: re-fetch, review, update `vendored_commit` / `vendored_date`, PR.
 
 ### Letting the skill know
 
-The MCP server picks up merged changes automatically. The skill's `SKILL.md`
+The MCP server picks up merged changes automatically, and the copy Action carries
+them into the skills repo's `corpus/`. The skill's `SKILL.md`
 describes corpus areas in prose, so a new initiative or a superseded headline
 resource should also get a matching update (and version bump) in
 [GenAI-Security-Advisor](https://github.com/GenAI-Security-Project/GenAI-Security-Advisor).

@@ -12,6 +12,11 @@ CI validates the manifest, and PDF text extraction runs automatically after merg
 workflows in `.github/workflows/`. Changing `extract_pdf_text.py` re-runs extraction
 on the next push to `main`.
 
+## Where to make corpus changes
+
+Here, always. This repo is the authoritative corpus for both the skill and the MCP
+server; the skills repo's `corpus/` is a copy that gets overwritten.
+
 ## Skill instructions
 
 `SKILL.md` lives in
