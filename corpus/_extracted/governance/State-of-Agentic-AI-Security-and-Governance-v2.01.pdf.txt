@@ -2,7 +2,7 @@
 # source_pdf: corpus/governance/State-of-Agentic-AI-Security-and-Governance-v2.01.pdf
 # resource_id: state-of-agentic-ai-security-governance-2.01
 # license: CC-BY-SA-4.0 (inherited from source PDF, see corpus/MANIFEST.yaml)
-# extracted: 2026-08-15
+# extracted: 2026-10-28
 #
 # UNREVIEWED, LOSSY TEXT EXTRACTION -- for full-text search only.
 # Tables, multi-column layout, and figures do not survive extraction

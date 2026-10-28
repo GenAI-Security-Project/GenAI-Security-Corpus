@@ -2,7 +2,7 @@
 # source_pdf: corpus/data-security/dsgai-2026/OWASP-GenAI-Data-Security-Risks-and-Mitigations-2026-v1.0.pdf
 # resource_id: dsgai-risk-doc-2026
 # license: CC-BY-SA-4.0 (inherited from source PDF, see corpus/MANIFEST.yaml)
-# extracted: 2026-08-15
+# extracted: 2026-10-28
 #
 # UNREVIEWED, LOSSY TEXT EXTRACTION -- for full-text search only.
 # Tables, multi-column layout, and figures do not survive extraction

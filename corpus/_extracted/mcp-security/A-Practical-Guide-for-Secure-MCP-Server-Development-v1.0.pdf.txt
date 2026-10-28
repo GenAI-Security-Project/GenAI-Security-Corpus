@@ -2,7 +2,7 @@
 # source_pdf: corpus/mcp-security/A-Practical-Guide-for-Secure-MCP-Server-Development-v1.0.pdf
 # resource_id: mcp-server-development-guide-1.0
 # license: CC-BY-SA-4.0 (inherited from source PDF, see corpus/MANIFEST.yaml)
-# extracted: 2026-08-15
+# extracted: 2026-10-28
 #
 # UNREVIEWED, LOSSY TEXT EXTRACTION -- for full-text search only.
 # Tables, multi-column layout, and figures do not survive extraction
